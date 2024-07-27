@@ -20,12 +20,6 @@ map("n", "<C-j>", "<C-w>j", { desc = "go to lower window" })
 map("n", "<C-k>", "<C-w>k", { desc = "go to upper window" })
 map("n", "<C-l>", "<C-w>l", { desc = "go to right window" })
 
--- move lines
-map("n", "<A-j>", "<CMD>m .+1<CR>==", { desc = "move down" })
-map("n", "<A-k>", "<CMD>m .-2<CR>==", { desc = "move up" })
-map("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "move down" })
-map("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "move up" })
-
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "prev search result" })
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "next search result" })
@@ -61,12 +55,8 @@ map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
 -- add a line break after/before current line
-map("n", "]<CR>", "m`o<ESC>``")
-map("n", "[<CR>", "m`O<ESC>``")
-
--- paste after/before current line
-map("n", "]p", "m`o<ESC>p``")
-map("n", "[p", "m`O<ESC>p``")
+map("n", "]<Space>", "m`o<ESC>``")
+map("n", "[<Space>", "m`O<ESC>``")
 
 -- disabled yank of the just rewritten selection
 -- map("x", '"+p', '"+p')
