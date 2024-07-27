@@ -8,12 +8,7 @@ return {
 	{ "nvimdev/dashboard-nvim", enabled = false },
 	{ "rcarriga/nvim-notify", enabled = false },
 	{ "lakas-reineke/indent-blankline.nvim", enabled = false },
-
-	{
-		"gbprod/yanky.nvim",
-		enabled = false,
-		keys = {},
-	},
+	{ "gbprod/yanky.nvim", enabled = false },
 
 	{
 		"navarasu/onedark.nvim",
