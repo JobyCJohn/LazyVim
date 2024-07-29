@@ -5,6 +5,9 @@ return {
 	},
 	opts = function(_, opts)
 		local cmp = require("cmp")
+		opts.completion = {
+			autocomplete = false,
+		}
 		local luasnip = require("luasnip")
 		opts.mapping = cmp.mapping.preset.insert({
 			["<C-n>"] = cmp.mapping.select_next_item(),

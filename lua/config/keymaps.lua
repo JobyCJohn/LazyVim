@@ -58,11 +58,8 @@ map("n", "N", "Nzzzv")
 map("n", "]<Space>", "m`o<ESC>``")
 map("n", "[<Space>", "m`O<ESC>``")
 
--- disabled yank of the just rewritten selection
--- map("x", '"+p', '"+p')
--- map("x", '"ap', '"ap')
--- map("x", '"0p', '"0p')
--- map("x", "p", '"_P')
+-- visual mode "P" map, because it will never yank the pasted over text into the register
+map("x", "p", "P")
 
 -- floating terminal
 local lazyterm = function()

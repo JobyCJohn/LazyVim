@@ -1,8 +1,9 @@
 local opt = vim.opt
 
+opt.autoindent = true
 opt.clipboard = "unnamedplus"
 opt.colorcolumn = "120"
-opt.completeopt = "menu,menuone,noinsert"
+opt.completeopt = "menu,menuone,noselect"
 opt.cursorline = false
 opt.expandtab = true
 opt.hlsearch = false
