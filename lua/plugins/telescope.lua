@@ -17,9 +17,15 @@ return {
 				":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
 				desc = "Projects",
 			},
+			{
+				"<leader>ff",
+				":lua require('utils.telescope-config').project_files()<CR>",
+				desc = "Project files",
+			},
 		},
 		opts = {
 			defaults = {
+				initial_mode = "normal",
 				layout_config = { prompt_position = "top" },
 				path_display = { "smart" },
 				sorting_strategy = "ascending",
@@ -32,11 +38,19 @@ return {
 					"%.dll",
 					"%.pdb",
 				},
+				vimgrep_arguments = {
+					"rg",
+					"--color=never",
+					"--no-heading",
+					"--with-filename",
+					"--line-number",
+					"--column",
+					"--smart-case",
+					"--trim",
+				},
 			},
 			mappings = {
 				i = {
-					["<C-c>"] = false,
-					["<Esc>"] = require("telescope.actions").close,
 					["<C-n>"] = require("telescope.actions").move_selection_next,
 					["<C-p>"] = require("telescope.actions").move_selection_previous,
 					["<C-j>"] = require("telescope.actions").cycle_history_next,
