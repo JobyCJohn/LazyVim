@@ -14,12 +14,6 @@ map("i", "<C-l>", "<Right>", { desc = "move right" })
 map("i", "<C-j>", "<Down>", { desc = "move down" })
 map("i", "<C-k>", "<Up>", { desc = "move up" })
 
--- move to window using the <ctrl> hjkl keys
-map("n", "<C-h>", "<C-w>h", { desc = "go to left window" })
-map("n", "<C-j>", "<C-w>j", { desc = "go to lower window" })
-map("n", "<C-k>", "<C-w>k", { desc = "go to upper window" })
-map("n", "<C-l>", "<C-w>l", { desc = "go to right window" })
-
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "prev search result" })
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "next search result" })
@@ -27,12 +21,6 @@ map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "prev search result
 map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "next search result" })
 map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "prev search result" })
 map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "next search result" })
-
--- resize window using <ctrl> arrow keys
-map("n", "<C-Up>", "<CMD>resize +2<CR>", { desc = "increase window height" })
-map("n", "<C-Down>", "<CMD>resize -2<CR>", { desc = "decrease window height" })
-map("n", "<C-Left>", "<CMD>vertical resize -2<CR>", { desc = "decrease window width" })
-map("n", "<C-Right>", "<CMD>vertical resize +2<CR>", { desc = "increase window width" })
 
 -- add undo break-points
 map("i", ",", ",<c-g>u")
