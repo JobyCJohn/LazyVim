@@ -4,17 +4,28 @@ return {
 	{ "folke/noice.nvim", enabled = false },
 	{ "folke/todo-comments.nvim", enabled = false },
 	{ "folke/which-key.nvim", enabled = false },
-	{ "ggandor/leap.nvim", enabled = false },
-	{ "nvimdev/dashboard-nvim", enabled = false },
-	{ "rcarriga/nvim-notify", enabled = false },
-	{ "lakas-reineke/indent-blankline.nvim", enabled = false },
 	{ "gbprod/yanky.nvim", enabled = false },
+	{ "ggandor/leap.nvim", enabled = false },
+	{ "lakas-reineke/indent-blankline.nvim", enabled = false },
+	{ "nvimdev/dashboard-nvim", enabled = false },
 
 	{
 		"navarasu/onedark.nvim",
 		priority = 1000,
 		config = function()
-			require("onedark").setup({ style = "deep" })
+			if vim.fn.has("gui_running") == 1 then
+				require("onedark").setup({
+					style = "deep",
+				})
+			else
+				require("onedark").setup({
+					style = "deep",
+					transparent = true,
+					lualine = {
+						transparent = true,
+					},
+				})
+			end
 			require("onedark").load()
 		end,
 	},

@@ -1,11 +1,15 @@
 local opt = vim.opt
 
+vim.g.autoformat = false
+
 opt.autoindent = true
 opt.clipboard = "unnamedplus"
 opt.colorcolumn = "120"
+opt.cmdheight = 2
 opt.completeopt = "menu,menuone,noselect"
 opt.cursorline = false
 opt.expandtab = true
+opt.guicursor = "n:block,i-c-ci:ver25,v-ve-r-cr-sm-o:hor20"
 opt.hlsearch = false
 opt.ignorecase = true
 opt.incsearch = true
@@ -38,7 +42,7 @@ local pwsh_installed = vim.fn.executable("pwsh") == 1
 local shell = pwsh_installed and "pwsh" or "powershell"
 opt.shell = shell
 opt.shellcmdflag =
-	"-NoLogo -MTA -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8"
+	"-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::UTF8"
 opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait; exit $LastExitCode"
 opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 opt.shellquote = ""

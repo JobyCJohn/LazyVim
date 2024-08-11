@@ -1,10 +1,14 @@
 -- relative numbering insert mode
 local augroup = vim.api.nvim_create_augroup("numbertoggle", {})
+
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" }, {
 	pattern = "*",
 	group = augroup,
 	callback = function()
-		if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then
+		local wininfo = vim.fn.getwininfo(vim.api.nvim_get_current_win())[1]
+		if wininfo.quickfix == 1 or wininfo.loclist == 0 then
+			vim.opt.relativenumber = false
+		elseif vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then
 			vim.opt.relativenumber = true
 		end
 	end,
