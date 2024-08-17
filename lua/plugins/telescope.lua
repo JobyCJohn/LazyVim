@@ -69,7 +69,17 @@ return {
             }
         end,
         keys = {
-            { "<leader>fp", "<CMD>Telescope project<CR>", desc = "Projects", }
+            -- projects
+            { "<leader>fp", "<CMD>Telescope project<CR>", desc = "Projects", },
+            -- grep
+            { "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>", desc = "Grep" },
+            -- find files
+            {
+                "<leader>ff",
+                ":lua require('utils.telescope-config').project_files()<cr>",
+                silent = true,
+                desc = "Find Files (Root Dir)",
+            },
         },
         config = function(_, opts)
             require("telescope").setup(opts)

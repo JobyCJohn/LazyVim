@@ -24,9 +24,12 @@ map("n", "[<Space>", "m`O<ESC>``")
 -- visual mode "P" never yank the pasted over text into the register
 map("x", "p", "P")
 
--- floating terminal
-local lazyterm = function()
-	LazyVim.terminal(nil, { cwd = LazyVim.root() })
-end
-map("n", "<c-`>", lazyterm, { desc = "Terminal (Root Dir)" })
-map("t", "<C-`>", "<CMD>close<CR>", { desc = "Hide Terminal" })
+-- neogit
+vim.keymap.del("n", "<leader>gg")
+vim.keymap.del("n", "<leader>gl")
+
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" })
+vim.keymap.set("n", "<leader>gl", function()
+    local f = vim.fn.expand("%")
+    require("neogit").action("log", "log_current", { "--", f })()
+end, { desc = "Git log current file" })
