@@ -39,13 +39,13 @@ opt.wildmode = "longest:full,full"
 opt.wildignore:append("*.dll,*.pdb,*.cache,*.resources,*.exe,*.ini,*.snk,*.swp,*.swo,*.bak")
 opt.wildignore:append("**/node_modules/**")
 
--- check if powershell executable is available
-local pwsh_installed = vim.fn.executable("pwsh") == 1
-local shell = pwsh_installed and "pwsh" or "powershell"
-opt.shell = shell
-opt.shellcmdflag =
-	"-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::UTF8"
-opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait; exit $LastExitCode"
-opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-opt.shellquote = ""
-opt.shellxquote = ""
+local utils = require('utils.utils')
+if utils.is_windows == 1 and vim.fn.executable("pwsh") == 1 then
+	opt.shell = "pwsh"
+	opt.shellcmdflag =
+		"-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::UTF8"
+	opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait; exit $LastExitCode"
+	opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+	opt.shellquote = ""
+	opt.shellxquote = ""
+end
