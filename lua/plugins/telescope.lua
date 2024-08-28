@@ -12,19 +12,25 @@ return {
         },
         opts = function(_, opts)
             opts.defaults = {
+                file_ignore_patterns = vim.g.folder_to_ignore,
                 initial_mode = "normal",
                 layout_config = { prompt_position = "top" },
-                path_display = { "smart" },
-                sorting_strategy = "ascending",
-                wrap_results = true,
-                file_ignore_patterns = {
-                    "node_modules",
-                    ".git/*",
-                    "%.zip",
-                    "%.exe",
-                    "%.dll",
-                    "%.pdb",
+                mappings = {
+                    i = {
+                        ["<Esc>"] = require("telescope.actions").close,
+                        ["<A-p>"] = require("telescope.actions.layout").toggle_preview,
+                        ['<C-j>'] = require("telescope.actions").move_selection_next,
+                        ['<C-k>'] = require("telescope.actions").move_selection_previous,
+                        ['<CR>'] = require('utils.utils').multiopen
+                    },
+                    n = {
+                        ["<A-p>"] = require("telescope.actions.layout").toggle_preview,
+                        ['<CR>'] = require('utils.utils').multiopen
+                    }
                 },
+                path_display = { "smart" },
+                preview = { hide_on_startup = true },
+                sorting_strategy = "ascending",
                 vimgrep_arguments = {
                     "rg",
                     "--color=never",
@@ -35,11 +41,7 @@ return {
                     "--smart-case",
                     "--trim",
                 },
-            }
-            opts.mappings = {
-                i = {
-                    ["<Esc>"] = require("telescope.actions").close,
-                },
+                wrap_results = true,
             }
             opts.pickers = {
                 find_files = {
@@ -70,13 +72,19 @@ return {
         end,
         keys = {
             -- projects
-            { "<leader>fp", "<CMD>Telescope project<CR>", desc = "Projects", },
+            { "<leader>fp",
+                "<CMD>Telescope project<CR>",
+                silent = true,
+                desc = "Projects" },
             -- grep
-            { "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>", desc = "Grep" },
+            { "<leader>fg",
+                ":lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
+                silent = true,
+                desc = "Grep" },
             -- find files
             {
                 "<leader>ff",
-                ":lua require('utils.telescope-config').project_files()<cr>",
+                ":lua require('utils.utils').project_files()<cr>",
                 silent = true,
                 desc = "Find Files (Root Dir)",
             },

@@ -20,6 +20,8 @@ return {
         },
     },
     opts = function(_, opts)
+        opts.disable_hint = true
+        opts.disable_commit_confirmation = true
         opts.integrations = {
             telescope = true,
             diffview = true,

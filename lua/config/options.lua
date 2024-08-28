@@ -1,9 +1,13 @@
 local opt = vim.opt
 
-vim.g.autoformat = false
+if vim.fn.has("unnamedplus") == 1 then
+  opt.clipboard = { "unnamed", "unnamedplus" }
+else
+  opt.clipboard = "unnamed"
+end
 
 opt.autoindent = true
-opt.clipboard = "unnamedplus"
+opt.cmdheight = 2
 opt.colorcolumn = "120"
 opt.completeopt = "menu,menuone,noselect"
 opt.cursorline = false
@@ -17,13 +21,13 @@ opt.incsearch = true
 opt.list = false
 opt.mouse = "a"
 opt.number = true
-opt.path:append({ "**" }) -- Finding files - Search down into subfolders
+opt.path:append({ "**" }) -- finding files - Search down into subfolders
 opt.pumblend = 10
 opt.pumheight = 10
 opt.relativenumber = true
 opt.scrolloff = 4
 opt.shiftwidth = 4
-opt.shortmess:append("sI")
+opt.shortmess:append("sI") -- don't give the intro messages when starting Vim
 opt.smartcase = true
 opt.smartindent = true
 opt.softtabstop = 4
@@ -31,13 +35,16 @@ opt.splitbelow = true
 opt.splitright = true
 opt.swapfile = false
 opt.tabstop = 4
+-- opt.tags = { "tags", ".git/tags" }
 opt.termguicolors = true
 opt.timeoutlen = 1000
 opt.wildmode = "longest:full,full"
 
 -- ignore files & folders
-opt.wildignore:append("*.dll,*.pdb,*.cache,*.resources,*.exe,*.ini,*.snk,*.swp,*.swo,*.bak")
-opt.wildignore:append("**/node_modules/**")
+opt.wildignore:append("*.exe,*.dll,*.pdb,*.cache,*.resources,*.ini,*.snk,*.swp,*.swo,*.bak")
+vim.g.folder_to_ignore = { "^%.git\\", "node_modules/.*" }
+
+vim.g.autoformat = false
 
 local utils = require('utils.utils')
 if utils.is_windows == 1 and vim.fn.executable("pwsh") == 1 then

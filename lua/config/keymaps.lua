@@ -21,5 +21,13 @@ map("n", "N", "Nzzzv")
 map("n", "]<Space>", "m`o<ESC>``")
 map("n", "[<Space>", "m`O<ESC>``")
 
+-- paste after/before the current line
+map("n", "]p", "m`o<ESC>p``")
+map("n", "[p", "m`O<ESC>p``")
+
 -- visual mode "P" never yank the pasted over text into the register
 map("x", "p", "P")
+
+-- tab
+map("n", "<Leader>tn", "<Cmd>tabnew<CR>", { desc = "New Tab" })
+map("n", "<Leader>tc", "<Cmd>tabclose<CR>", { desc = "Close Tab" })
