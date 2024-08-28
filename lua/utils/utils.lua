@@ -18,7 +18,31 @@ M.project_files = function()
 end
 
 M.is_windows = function()
-	return vim.loop.os_uname().sysname:find("Windows", 1, true) and true
+    return vim.loop.os_uname().sysname:find("Windows", 1, true) and true
+end
+
+local actions = require('telescope.actions')
+local action_state = require('telescope.actions.state')
+
+M.multiopen = function(prompt_bufnr)
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    local multi = picker:get_multi_selection()
+
+    if not vim.tbl_isempty(multi) then
+        actions.close(prompt_bufnr)
+        for _, selection in pairs(multi) do
+            if selection.path ~= nil then
+                local path = vim.fn.fnameescape(selection.path)
+                if selection.lnum ~= nil then
+                    vim.cmd(string.format("silent! edit +%d %s", selection.lnum, path))
+                else
+                    vim.cmd(string.format("silent! edit %s", path))
+                end
+            end
+        end
+    else
+        actions.select_default(prompt_bufnr)
+    end
 end
 
 return M
