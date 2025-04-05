@@ -1,9 +1,7 @@
 local opt = vim.opt
 
-if vim.fn.has("unnamedplus") == 1 then
-  opt.clipboard = { "unnamed", "unnamedplus" }
-else
-  opt.clipboard = "unnamed"
+if vim.fn.has("clipboard") == 1 or vim.fn.has("win32") == 1 then
+	opt.clipboard:append("unnamedplus")
 end
 
 opt.autoindent = true
@@ -35,9 +33,8 @@ opt.splitbelow = true
 opt.splitright = true
 opt.swapfile = false
 opt.tabstop = 4
--- opt.tags = { "tags", ".git/tags" }
 opt.termguicolors = true
-opt.timeoutlen = 1000
+opt.timeoutlen = 500
 opt.wildmode = "longest:full,full"
 
 -- ignore files & folders
@@ -46,8 +43,8 @@ vim.g.folder_to_ignore = { "^%.git\\", "node_modules/.*" }
 
 vim.g.autoformat = false
 
-local utils = require('utils.utils')
-if utils.is_windows == 1 and vim.fn.executable("pwsh") == 1 then
+local utils = require("utils.utils")
+if utils.is_windows() and vim.fn.executable("pwsh") == 1 then
 	opt.shell = "pwsh"
 	opt.shellcmdflag =
 		"-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::UTF8"

@@ -1,33 +1,29 @@
 local function map(mode, lhs, rhs, opts)
-	local options = { noremap = true, silent = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.keymap.set(mode, lhs, rhs, options)
+  local options = { noremap = true, silent = true }
+  if opts then
+      options = vim.tbl_extend("force", options, opts)
+    end
+  vim.keymap.set(mode, lhs, rhs, options)
 end
 
--- append bottom lines with the cursor line
-map("n", "J", "mzJ`z")
+-- Basic movement enhancements
+map("n", "J", "mzJ`z")                      -- Append lines, keep cursor
+map("n", "<C-d>", "<C-d>zz")               -- Scroll down, center
+map("n", "<C-u>", "<C-u>zz")               -- Scroll up, center
+map("n", "n", "nzzzv")                     -- Next search result, center
+map("n", "N", "Nzzzv")                     -- Previous search result, center
 
--- down/up with cursor position in middle
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
+-- Line break insertion
+map("n", "]<Space>", "m`o<ESC>``")         -- Insert line below
+map("n", "[<Space>", "m`O<ESC>``")         -- Insert line above
 
--- next/previous search with cursor position in middle
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+-- Line paste helpers
+map("n", "]p", "m`o<ESC>p``")              -- Paste below
+map("n", "[p", "m`O<ESC>p``")              -- Paste above
 
--- add a line break after/before current line
-map("n", "]<Space>", "m`o<ESC>``")
-map("n", "[<Space>", "m`O<ESC>``")
+-- Visual mode paste: keep register content after paste
+map("x", "p", '"_dP')
 
--- paste after/before the current line
-map("n", "]p", "m`o<ESC>p``")
-map("n", "[p", "m`O<ESC>p``")
-
--- visual mode "P" never yank the pasted over text into the register
-map("x", "p", "P")
-
--- tab
-map("n", "<Leader>tn", "<Cmd>tabnew<CR>", { desc = "New Tab" })
+-- Tab management
+map("n", "<Leader>tn", "<Cmd>tabnew<CR>",   { desc = "New Tab" })
 map("n", "<Leader>tc", "<Cmd>tabclose<CR>", { desc = "Close Tab" })
