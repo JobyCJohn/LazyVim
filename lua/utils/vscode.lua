@@ -1,7 +1,3 @@
-if not vim.g.vscode then
-	return {}
-end
-
 local enabled = {
 	"lazy.nvim",
 	"mini.ai",
@@ -15,11 +11,11 @@ local enabled = {
 	"vim-repeat",
 }
 
-local Config = require("lazy.core.config")
-Config.options.checker.enabled = false
-Config.options.change_detection.enabled = false
-Config.options.defaults.cond = function(plugin)
-	return vim.tbl_contains(enabled, plugin.name)
+local config = require("lazy.core.config")
+config.options.checker.enabled = false
+config.options.change_detection.enabled = false
+config.options.defaults.cond = function(plugin)
+    return vim.tbl_contains(enabled, plugin.name)
 end
 
 -- vscode specific keymaps
