@@ -1,30 +1,60 @@
 return {
-    "NeogitOrg/neogit",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim",
-        "sindrets/diffview.nvim",
-    },
-    keys = {
-        {"<Leader>gg", false},
-        {"<Leader>gl", false},
+    {
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+        },
+        lazy = true,
+        config = function()
+            require("neogit").setup({
+                disable_hint = true,
+                disable_commit_confirmation = true,
+                integrations = { diffview = true },
 
-        { "<Leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
-        {
-            "<leader>gl",
-            function()
-                local f = vim.fn.expand("%")
-                require("neogit").action("log", "log_current", { "--", f })()
-            end,
-            desc = "Git log current file",
+                status = {
+                    use_floating_window = true,
+                    floating_window = {
+                        border = 'rounded',
+                        winblend = 15,
+                    },
+                },
+            })
+        end,
+        keys = {
+            { "<Leader>gg", false },
+            { "<Leader>gs", false },
+            { "<Leader>gl", false },
+
+            { "<Leader>gg", "<cmd>Neogit<CR>", desc = "Open Neogit" },
+            { "<Leader>gs", "<cmd>Neogit status<CR>", desc = "Git Status" },
+            {
+                "<Leader>gl",
+                function()
+                    local f = vim.fn.expand("%")
+                    require("neogit").action("log", "log_current", { "--", f })()
+                end,
+                desc = "Git Log Current File",
+            },
         },
     },
-    opts = function(_, opts)
-        opts.disable_hint = true
-        opts.disable_commit_confirmation = true
-        opts.integrations = {
-            telescope = true,
-            diffview = true,
-        }
-    end,
+
+    {
+        "sindrets/diffview.nvim",
+        lazy = true,
+        cmd = {
+            "DiffviewOpen",
+            "DiffviewFileHistory",
+        },
+        config = function()
+            require('diffview').setup({
+                enhanced_diff_hl = true,
+                show_help_hints = false,
+            })
+        end,
+        keys = {
+            { "<Leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Open Diffview" },
+            { "<Leader>gh", "<cmd>DiffviewFileHistory<CR>", desc = "Git File History" },
+        },
+    }
 }

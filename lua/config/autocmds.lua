@@ -1,10 +1,9 @@
-vim.api.nvim_create_autocmd("BufWinEnter", {
-	desc = "open help window in right vertical split",
-	group = vim.api.nvim_create_augroup("help_window_right", {}),
-	pattern = { "*.txt" },
-	callback = function()
-		if vim.o.filetype == "help" then
-			vim.cmd.wincmd("L")
-		end
-	end,
+local group = vim.api.nvim_create_augroup("help_window_right", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    desc = "Open help window in right vertical split",
+    group = group,
+    pattern = "help",
+    callback = function()
+        vim.cmd.wincmd("L")
+    end,
 })

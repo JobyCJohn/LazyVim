@@ -1,9 +1,7 @@
 local opt = vim.opt
 
-if vim.fn.has("unnamedplus") == 1 then
-  opt.clipboard = { "unnamed", "unnamedplus" }
-else
-  opt.clipboard = "unnamed"
+if vim.fn.has("clipboard") == 1 or vim.fn.has("win32") == 1 then
+    opt.clipboard:append("unnamedplus")
 end
 
 opt.autoindent = true
