@@ -1,6 +1,7 @@
 return {
-	{ "catppuccin/nvim", enabled = false },
-	{ "folke/flash.nvim", enabled = false },
+    { "nvim-mini/mini.ai", enabled = false },
+    { "catppuccin/nvim", enabled = false },
+    { "folke/flash.nvim", enabled = false },
     {
         "folke/noice.nvim",
         opts = {
@@ -8,14 +9,14 @@ return {
             messages = { enabled = false, },
         },
     },
-	{ "folke/todo-comments.nvim", enabled = false },
-	{ "folke/which-key.nvim", enabled = false },
-	{
-		"folke/snacks.nvim",
+    { "folke/todo-comments.nvim", enabled = false },
+    { "folke/which-key.nvim", enabled = false },
+    {
+        "folke/snacks.nvim",
         opts = {
             animate = { enabled = false },
             dashboard = { enabled = false },
             indent = { enabled = false }
         },
-	},
+    },
 }

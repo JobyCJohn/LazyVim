@@ -19,3 +19,39 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
   desc = "Trim trailing whitespace on save",
 })
+
+-- Automatically use ctags from git root for symbol navigation (including C#, XAML, feature files)
+local function get_git_root()
+  local git_dir = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+  if git_dir and git_dir ~= '' then
+    return git_dir
+  else
+    return vim.fn.getcwd()
+  end
+end
+
+-- Only run ctags if it is available
+local function ctags_available()
+  return vim.fn.executable('ctags') == 1
+end
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  desc = "Update ctags symbols in git root on save (only for the saved file)",
+  pattern = { "*.lua", "*.c", "*.cpp", "*.h", "*.cs", "*.xaml", "*.feature" },
+  callback = function(args)
+    if not ctags_available() then
+      vim.notify('ctags not found in PATH. Skipping tag generation.', vim.log.levels.WARN)
+      return
+    end
+    local root = get_git_root()
+    -- Generate ctags only for the saved file (relative to git root)
+    local relpath = vim.fn.fnamemodify(args.file, ':~:.')
+    vim.fn.jobstart({
+      "ctags", "-a", relpath
+    }, {
+      cwd = root,
+      detach = true,
+    })
+    vim.opt.tags = { root .. "/tags" }
+  end,
+})

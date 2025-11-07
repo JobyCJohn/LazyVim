@@ -43,13 +43,5 @@ vim.g.folder_to_ignore = { "^%.git\\", "node_modules/.*" }
 
 vim.g.autoformat = false
 
-local utils = require("utils.utils")
-if utils.is_windows() and vim.fn.executable("pwsh") == 1 then
-	opt.shell = "pwsh"
-	opt.shellcmdflag =
-		"-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::UTF8"
-	opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait; exit $LastExitCode"
-	opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-	opt.shellquote = ""
-	opt.shellxquote = ""
-end
+-- Platform-specific configuration (e.g., Windows shell config)
+require("utils.utils").setup_windows_shell()
