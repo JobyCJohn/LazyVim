@@ -1,6 +1,6 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+﻿local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	vim.fn.system({
+	local output = vim.fn.system({
 		"git",
 		"clone",
 		"--filter=blob:none",
@@ -8,12 +8,15 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 		"--branch=stable",
 		lazypath,
 	})
+	if vim.v.shell_error ~= 0 then
+		error("Failed to clone lazy.nvim:\n" .. output, 0)
+	end
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
 	spec = {
-		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
+		{ "LazyVim/LazyVim", version = "*", import = "lazyvim.plugins" },
 		{ import = "plugins" },
 	},
 	defaults = {
@@ -22,8 +25,7 @@ require("lazy").setup({
 		lazy = false,
 		-- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
 		-- have outdated releases, which may break your Neovim install.
-		-- version = false, -- always use the latest git commit
-		version = "*", -- try installing the latest stable version for plugins that support semver
+		version = false, -- always use the latest git commit
 	},
 	checker = {
 		enabled = true, -- check for plugin updates periodically
@@ -33,9 +35,6 @@ require("lazy").setup({
 		rtp = {
 			disabled_plugins = {
 				"gzip",
-				-- "matchit",
-				-- "matchparen",
-				-- "netrwPlugin",
 				"tarPlugin",
 				"tohtml",
 				"tutor",
